@@ -37,6 +37,7 @@ async function searchInput (words) {
 	if (!words.target.value) {
 		document.querySelectorAll('.search-string-element').forEach(el => el.remove());
 	} else {
+		try {
 		document.querySelectorAll('.search-string-element').forEach(el => el.remove());
 		let sectionSearch = document.querySelector('.search-string');
 		let response = await fetch(`https://api.github.com/search/repositories?q=${words.target.value}`);
@@ -51,6 +52,10 @@ async function searchInput (words) {
 			el.addEventListener('click', addCard);
 		});
 	}
+	catch (error) {
+		alert(`${error.name}: ${error.message}`);
+	}
+}
 }
 
 let debTime = debounce(searchInput, 800);
